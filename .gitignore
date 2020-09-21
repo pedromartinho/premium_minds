@@ -1,0 +1,4 @@
+# Ignore VScode files
+.rubocop.yml
+.rubocop_todo.yml
+.vscode/
