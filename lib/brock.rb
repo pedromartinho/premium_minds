@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require 'set'
-
-# Third solution (Ash) considers the Set objetct since we do not have to store.
-# Since the Set object implements a collection of unordered values with no
-# duplicates, the insertion of new ellements shows also very interesting
-# results
-class Ash
+# First solution (Brock) that considers an array of points and verifies if the
+# new point is already in the visited points. If not, the point is added to
+# the list os points, meaning a new pokemon was foind
+class Brock
   def run
     input = ARGV[0]
     puts catch_pokemons(input)
@@ -14,8 +11,7 @@ class Ash
 
   def catch_pokemons(input)
     @current_position = [0, 0]
-    @pokemon_positions = Set.new
-    @pokemon_positions << @current_position.dup
+    @pokemon_positions = [[0, 0]]
     if !input.nil? && !input.empty?
       input.split('').each { |move| update_pokemon_positions(move) }
     end
@@ -24,7 +20,7 @@ class Ash
 
   private
 
-  def update_pokemon_positions(move)
+  def update_position(move)
     case move
     when 'N'
       @current_position[1] += 1
@@ -35,6 +31,12 @@ class Ash
     when 'O'
       @current_position[0] -= 1
     end
-    @pokemon_positions << @current_position.dup
+  end
+
+  def update_pokemon_positions(move)
+    update_position(move)
+    unless @pokemon_positions.include?(@current_position)
+      @pokemon_positions << @current_position.dup
+    end
   end
 end

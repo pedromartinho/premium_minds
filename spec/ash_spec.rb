@@ -6,10 +6,12 @@ describe Ash do
   before do
     @ash = Ash.new
     @gary = Gary.new
+    @brock = Brock.new
   end
 
   let(:ash) { @ash }
   let(:gary) { @gary }
+  let(:brock) { @brock }
   describe 'simple valid inputs' do
     it 'two pokemons must be caught' do
       input = 'NSNS'
@@ -56,23 +58,44 @@ describe Ash do
     end
   end
 
-  describe 'huge inputs' do
+  describe 'huge inputs gary tests' do
     directions = %w[N S E O]
-    it 'should have the same output as Gary - 100 0 direction' do
+    it 'gary should have the same output as Brock - 1000 directions' do
       input = (0..1000).map { directions[rand(directions.length)] }.join
-      expected_output = gary.catch_pokemons(input)
+      expected_output = brock.catch_pokemons(input)
       expect(ash.catch_pokemons(input)).to eq(expected_output)
     end
 
-    it 'should have the same output as Gary - 100 00 direction' do
+    it 'gary should have the same output as Brock - 10000 directions' do
       input = (0..100_00).map { directions[rand(directions.length)] }.join
-      expected_output = gary.catch_pokemons(input)
+      expected_output = brock.catch_pokemons(input)
       expect(ash.catch_pokemons(input)).to eq(expected_output)
     end
 
-    it 'should have the same output as Gary - 200 00 direction' do
+    it 'gary should have the same output as Brock - 20000 directions' do
       input = (0..200_00).map { directions[rand(directions.length)] }.join
-      expected_output = gary.catch_pokemons(input)
+      expected_output = brock.catch_pokemons(input)
+      expect(ash.catch_pokemons(input)).to eq(expected_output)
+    end
+  end
+
+  describe 'huge inputs ash tests (final solution)' do
+    directions = %w[N S E O]
+    it 'ash ash should have the same output as Brock - 1000 direction' do
+      input = (0..1000).map { directions[rand(directions.length)] }.join
+      expected_output = brock.catch_pokemons(input)
+      expect(ash.catch_pokemons(input)).to eq(expected_output)
+    end
+
+    it 'ash should have the same output as Brock - 10000 direction' do
+      input = (0..100_00).map { directions[rand(directions.length)] }.join
+      expected_output = brock.catch_pokemons(input)
+      expect(ash.catch_pokemons(input)).to eq(expected_output)
+    end
+
+    it 'ash should have the same output as Brock - 20000 direction' do
+      input = (0..200_00).map { directions[rand(directions.length)] }.join
+      expected_output = brock.catch_pokemons(input)
       expect(ash.catch_pokemons(input)).to eq(expected_output)
     end
   end

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Second solution (Gary) considers an hash with the X-axis as the hash keys and
+# the Y-axis values are stores in each of the key values. This results in much
+# validation of new points before consider a new pokemon was found
 class Gary
   def run
     input = ARGV[0]
@@ -7,12 +10,15 @@ class Gary
   end
 
   def catch_pokemons(input)
-    @@current_position = [0, 0]
-    @@pokemon_positions = [[0, 0]]
+    @x = 0
+    @y = 0
+    @pokemon_positions = { 0 => [0] }
+    n_pokemons = 0
     if !input.nil? && !input.empty?
       input.split('').each { |move| update_pokemon_positions(move) }
     end
-    @@pokemon_positions.size
+    @pokemon_positions.each { |r| n_pokemons += r[1].length }
+    n_pokemons
   end
 
   private
@@ -20,20 +26,22 @@ class Gary
   def update_position(move)
     case move
     when 'N'
-      @@current_position[1] += 1
+      @y += 1
     when 'S'
-      @@current_position[1] -= 1
+      @y -= 1
     when 'E'
-      @@current_position[0] += 1
+      @x += 1
     when 'O'
-      @@current_position[0] -= 1
+      @x -= 1
     end
   end
 
   def update_pokemon_positions(move)
     update_position(move)
-    unless @@pokemon_positions.include?(@@current_position)
-      @@pokemon_positions << @@current_position.dup
+    if @pokemon_positions[@x].nil?
+      @pokemon_positions[@x] = [@y.dup]
+    elsif !@pokemon_positions[@x].include?(@y)
+      @pokemon_positions[@x] << @y.dup
     end
   end
 end

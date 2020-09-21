@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
+# Profile Helper gives a set of functions to help evaluate the performance of
+# each script by measuring memory and time consumed by each of them
 module ProfileHelper
   require 'benchmark'
 
-  #################################################################################################
-  # Function - Profile
-  #
-  # Description
-  ### Profiles the memory, time and number of freed objects by the Garbage Collector from the begin
-  ### and the finish of a script
-  #################################################################################################
   def profile
     profile_memory do
       profile_time do
@@ -18,12 +13,6 @@ module ProfileHelper
     end
   end
 
-  #################################################################################################
-  # Function - Profile Memory
-  #
-  # Description
-  ### Profiles the memory used from the begin and the finish of the script
-  #################################################################################################
   def profile_memory
     memory_usage_before = `ps -o rss= -p #{Process.pid}`.to_i
     yield
@@ -33,12 +22,6 @@ module ProfileHelper
     puts "Memory usage: #{used_memory} MB"
   end
 
-  #################################################################################################
-  # Function - Profile Time
-  #
-  # Description
-  ### Profiles the time taken in seconds from the begin and the finish of a script
-  #################################################################################################
   def profile_time
     time_elapsed = Benchmark.realtime do
       yield

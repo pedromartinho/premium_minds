@@ -2,6 +2,7 @@
 
 require_relative '../lib/ash'
 require_relative '../lib/gary'
+require_relative '../lib/brock'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
